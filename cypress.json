@@ -1,9 +1,11 @@
 {
-  "integrationFolder": "cypress/integration",
-  "supportFile": "cypress/support/index.ts",
-  "videosFolder": "cypress/videos",
-  "screenshotsFolder": "cypress/screenshots",
-  "pluginsFile": "cypress/plugins/index.js",
-  "fixturesFolder": "cypress/fixtures",
-  "baseUrl": "http://localhost:4200"
+  "baseUrl": "http://localhost:4201",
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "results/mochawesome",
+    "overwrite": false,
+    "html": false,
+    "json": true
+  },
+  "video": false
 }

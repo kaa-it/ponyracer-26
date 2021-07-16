@@ -4,11 +4,14 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
+    browserNoActivityTimeout: 30000,
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-firefox-launcher'),
+      require('karma-json-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
@@ -29,15 +32,20 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
+        { type: 'json-summary' },
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    jsonReporter: {
+      stdout: false,
+      outputFile: './results/karma-results.json'
+    },
+    reporters: process.env.CI === 'true' ? ['dots', 'json'] : ['progress', 'json', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     singleRun: false,
     restartOnFileChange: true
   });
