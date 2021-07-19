@@ -6,6 +6,6 @@ import { RaceModel } from './models/race.model';
 })
 export class RaceService {
   list(): Array<RaceModel> {
-    return [{ name: 'Lyon' }, { name: 'London' }];
+    return [{ name: 'Lyon' }, { name: 'Los Angeles' }, { name: 'Sydney' }, { name: 'Tokyo' }, { name: 'Casablanca' }];
   }
 }
