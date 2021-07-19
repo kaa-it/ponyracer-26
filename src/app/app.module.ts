@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
+import { RacesComponent } from './races/races.component';
+import { RaceService } from './race.service';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent],
+  declarations: [AppComponent, MenuComponent, RacesComponent],
   imports: [BrowserModule],
-  providers: [],
+  providers: [RaceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
