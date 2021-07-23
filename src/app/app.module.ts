@@ -8,10 +8,14 @@ import { RaceService } from './race.service';
 import { RaceComponent } from './race/race.component';
 import { PonyComponent } from './pony/pony.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FromNowPipe } from './from-now.pipe';
+import { HomeComponent } from './home/home.component';
+import { ROUTES } from './app.routes';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, RacesComponent, RaceComponent, PonyComponent],
-  imports: [BrowserModule, HttpClientModule],
+  declarations: [AppComponent, MenuComponent, RacesComponent, RaceComponent, PonyComponent, FromNowPipe, HomeComponent],
+  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(ROUTES)],
   providers: [RaceService],
   bootstrap: [AppComponent]
 })
