@@ -13,13 +13,23 @@ import { HomeComponent } from './home/home.component';
 import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, RacesComponent, RaceComponent, PonyComponent, FromNowPipe, HomeComponent, RegisterComponent, LoginComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, RouterModule.forRoot(ROUTES)],
+  declarations: [
+    AppComponent,
+    MenuComponent,
+    RacesComponent,
+    RaceComponent,
+    PonyComponent,
+    FromNowPipe,
+    HomeComponent,
+    RegisterComponent,
+    LoginComponent
+  ],
+  imports: [BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(ROUTES)],
   providers: [RaceService, UserService],
   bootstrap: [AppComponent]
 })

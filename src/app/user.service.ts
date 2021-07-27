@@ -18,4 +18,8 @@ export class UserService {
       birthYear
     });
   }
+
+  authenticate(credentials: { login: string; password: string }): Observable<UserModel> {
+    return this.http.post<UserModel>(`${baseUrl}/api/users/authentication`, credentials);
+  }
 }
