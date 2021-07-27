@@ -1,1 +1,1 @@
-{"pack":"50","id":18,"title":"Logged home","specs":[{"name":"cypress/integration/home.spec.ts","hash":"2117b1c866fe1b1f451270538c849c35d50736d3"},{"name":"src/app/home/home.component.spec.ts","hash":"a45a821221d009cc7386099c35a800767577f528"},{"name":"src/app/menu/menu.component.spec.ts","hash":"d339d956bc2d5c17d49c2d7f1fb1ed9eac824fda"}]}
+{"pack":"50","id":19,"title":"Remember me","specs":[{"name":"cypress/integration/home.spec.ts","hash":"816994e9049a482ba190747f84f7c2b7a3c04d86"},{"name":"src/app/user.service.spec.ts","hash":"fa183184234f02d7042632f64252420b59b7f4f3"}]}
