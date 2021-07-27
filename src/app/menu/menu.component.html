@@ -13,6 +13,15 @@
         <!--          <a class="nav-link" [routerLink]="['/register']">Register</a>-->
         <!--        </li>-->
       </ul>
+      <ul class="navbar-nav" *ngIf="user !== null">
+        <li class="nav-item">
+          <span class="navbar-text me-2" id="current-user">
+            {{ user.login }}
+            <span class="fa fa-star"></span>
+            {{ user.money }}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
