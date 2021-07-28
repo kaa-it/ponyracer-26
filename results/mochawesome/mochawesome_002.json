@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2021-07-28T11:03:10.994Z",
-    "end": "2021-07-28T11:03:11.951Z",
-    "duration": 957,
+    "failures": 1,
+    "start": "2021-07-28T12:13:56.293Z",
+    "end": "2021-07-28T12:13:59.147Z",
+    "duration": 2854,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "48054b3a-ad6d-4152-8315-be31cee9a3a8",
+      "uuid": "2fd816e8-f401-496b-9064-df5870999509",
       "title": "",
       "fullFile": "cypress/integration/live.spec.ts",
       "file": "cypress/integration/live.spec.ts",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "356dc6b5-d042-46f0-b166-953c6ef3b837",
+          "uuid": "e06bcc11-7bf3-4e1c-b729-c3278402dd40",
           "title": "Live",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "should display a live race",
               "fullTitle": "Live should display a live race",
               "timedOut": null,
-              "duration": 948,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
+              "duration": 2714,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
-              "code": "storeUserInLocalStorage();\ncy.visit('/races/12/live');\ncy.wait('@getPendingRace');\ncy.get('h1').should('contain', 'Paris');",
-              "err": {},
-              "uuid": "9c36bb1f-c386-48e1-9aff-1ddcddf78e4a",
-              "parentUUID": "356dc6b5-d042-46f0-b166-953c6ef3b837",
+              "code": "storeUserInLocalStorage();\nconst { fakeWS, wsOptions } = buildFakeWS();\ncy.visit('/races', wsOptions);\ncy.wait('@getRaces');\n// go to bet page for the first race\ncy.get('.btn-primary').first().click();\ncy.wait('@getRace');\n// bet on first pony\ncy.get('img').first().click();\ncy.wait('@betRace');\n// emulate a pending race\ncy.intercept('GET', 'api/races/12', Object.assign(Object.assign({}, race), { betPonyId: 2, status: 'PENDING' })).as('getPendingRace');\n// go to live\ncy.get('.btn-primary').first().click();\ncy.location('pathname').should('eq', '/races/12/live');\ncy.wait('@getPendingRace');\ncy.wait(1000);\nlet angular;\ncy.window().then((win) => (angular = win.ng));\nlet document;\ncy.document().then(doc => (document = doc));\n// WebSocket connection created\ncy.get('@ws')\n    .should('be.called')\n    .then(() => {\n    fakeWS.emulateRace({\n        ponies: [\n            { id: 1, name: 'Gentle Pie', color: 'YELLOW', position: 30 },\n            { id: 2, name: 'Big Soda', color: 'ORANGE', position: 80 },\n            { id: 3, name: 'Gentle Bottle', color: 'PURPLE', position: 70 },\n            { id: 4, name: 'Superb Whiskey', color: 'GREEN', position: 60 },\n            { id: 5, name: 'Fast Rainbow', color: 'BLUE', position: 30 }\n        ],\n        status: 'RUNNING'\n    });\n    // the component can be inside ng-component if it has no selector\n    const element = document.querySelector('pr-live') || document.querySelector('ng-component');\n    const liveComponent = angular.getComponent(element);\n    angular.applyChanges(liveComponent);\n});\n// race detail should be displayed\ncy.get('h1').should('contain', 'Paris');\ncy.get('img').should('have.length', 5);",
+              "err": {
+                "message": "TypeError: fakeWS.onmessage is not a function",
+                "estack": "TypeError: fakeWS.onmessage is not a function\n    at Object.emulateRace (http://localhost:4200/__cypress/tests?p=cypress/integration/live.spec.ts:161:20)\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/live.spec.ts:199:20)",
+                "diff": null
+              },
+              "uuid": "45333086-4f9c-412e-b1c5-d85b69510b6f",
+              "parentUUID": "e06bcc11-7bf3-4e1c-b729-c3278402dd40",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "9c36bb1f-c386-48e1-9aff-1ddcddf78e4a"
+          "passes": [],
+          "failures": [
+            "45333086-4f9c-412e-b1c5-d85b69510b6f"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 948,
+          "duration": 2714,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
