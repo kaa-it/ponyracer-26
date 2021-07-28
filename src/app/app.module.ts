@@ -18,6 +18,7 @@ import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { BetComponent } from './bet/bet.component';
+import { LiveComponent } from './live/live.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BetComponent } from './bet/bet.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    BetComponent
+    BetComponent,
+    LiveComponent
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(ROUTES)],
   providers: [RaceService, UserService, { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }],
