@@ -7,7 +7,7 @@ import { RacesComponent } from './races/races.component';
 import { RaceService } from './race.service';
 import { RaceComponent } from './race/race.component';
 import { PonyComponent } from './pony/pony.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FromNowPipe } from './from-now.pipe';
 import { HomeComponent } from './home/home.component';
 import { ROUTES } from './app.routes';
@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(ROUTES)],
-  providers: [RaceService, UserService],
+  providers: [RaceService, UserService, { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

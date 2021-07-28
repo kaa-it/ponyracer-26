@@ -5,9 +5,9 @@
     "passes": 9,
     "pending": 0,
     "failures": 0,
-    "start": "2021-07-27T17:07:33.002Z",
-    "end": "2021-07-27T17:07:44.601Z",
-    "duration": 8802,
+    "start": "2021-07-28T08:00:09.444Z",
+    "end": "2021-07-28T08:00:20.992Z",
+    "duration": 8857,
     "testsRegistered": 9,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "98499ca0-b107-4d6f-b0fe-be45acf191eb",
+      "uuid": "7be68458-bc62-4220-b2af-0066b05a70ab",
       "title": "",
       "fullFile": "cypress/integration/home.spec.ts",
       "file": "cypress/integration/home.spec.ts",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "41496d74-8c5c-4558-852a-a9b3567f2dbc",
+          "uuid": "80c3f201-a9d2-4653-9916-9121541bc06c",
           "title": "Ponyracer",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "should display title on home page",
               "fullTitle": "Ponyracer should display title on home page",
               "timedOut": null,
-              "duration": 1075,
+              "duration": 1051,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.visit('/');\ncy.contains('h1', 'Ponyracer');\ncy.contains('small', 'Always a pleasure to bet on ponies');\ncy.get('.btn-primary').contains('Login').should('have.attr', 'href', '/login');\ncy.get('.btn-primary').contains('Register').should('have.attr', 'href', '/register');",
               "err": {},
-              "uuid": "51cae24d-4e80-4065-b830-0f7175b1fe65",
-              "parentUUID": "41496d74-8c5c-4558-852a-a9b3567f2dbc",
+              "uuid": "edafad9e-5d26-4b63-8c0b-92de8380a4c0",
+              "parentUUID": "80c3f201-a9d2-4653-9916-9121541bc06c",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "should display a navbar",
               "fullTitle": "Ponyracer should display a navbar",
               "timedOut": null,
-              "duration": 148,
+              "duration": 149,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -65,8 +65,8 @@
               "context": null,
               "code": "cy.visit('/');\ncy.get(navbarBrand).contains('PonyRacer').should('have.attr', 'href', '/');\ncy.get(navbarLink).should('not.exist');",
               "err": {},
-              "uuid": "01a9059e-6191-4d05-8a80-68f5facb188a",
-              "parentUUID": "41496d74-8c5c-4558-852a-a9b3567f2dbc",
+              "uuid": "fb25eb75-64c0-482e-89ea-ef6b9245eae5",
+              "parentUUID": "80c3f201-a9d2-4653-9916-9121541bc06c",
               "isHook": false,
               "skipped": false
             },
@@ -74,7 +74,7 @@
               "title": "should display a navbar collapsed on small screen",
               "fullTitle": "Ponyracer should display a navbar collapsed on small screen",
               "timedOut": null,
-              "duration": 239,
+              "duration": 236,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -83,8 +83,8 @@
               "context": null,
               "code": "storeUserInLocalStorage();\ncy.viewport('iphone-6+');\ncy.visit('/');\ncy.contains(navbarBrand, 'PonyRacer');\ncy.get(navbarLink).should('not.be.visible');\n// toggle the navbar\ncy.get('.navbar-toggler').click();\ncy.get(navbarLink).should('exist');",
               "err": {},
-              "uuid": "8faefd63-9f9d-4464-8a36-67901d8748a2",
-              "parentUUID": "41496d74-8c5c-4558-852a-a9b3567f2dbc",
+              "uuid": "4003b7ca-8a4a-48b2-85e5-3d25bf4d3f75",
+              "parentUUID": "80c3f201-a9d2-4653-9916-9121541bc06c",
               "isHook": false,
               "skipped": false
             },
@@ -92,32 +92,32 @@
               "title": "should log out the user",
               "fullTitle": "Ponyracer should log out the user",
               "timedOut": null,
-              "duration": 265,
+              "duration": 316,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "storeUserInLocalStorage();\ncy.visit('/races');\ncy.wait('@getRaces');\n// user stored should be displayed\ncy.get('#current-user').should('contain', 'cedric').and('contain', '1000');\n// logout\ncy.get('span.fa.fa-power-off').click();\n// should be redirected to home page\ncy.location('pathname')\n    .should('eq', '/')\n    // and localStorage should be clean\n    .and(() => expect(localStorage.getItem('rememberMe')).to.eq(null));\ncy.get(navbarLink).should('not.exist');\n// user is not displayed in navbar\ncy.get('#current-user').should('not.exist');\n// and home page offers the login link\ncy.get('.btn-primary').contains('Login').should('have.attr', 'href', '/login');",
+              "code": "storeUserInLocalStorage();\ncy.visit('/races');\ncy.wait('@getRaces').its('request.headers').should('have.property', 'authorization', `Bearer ${user.token}`);\n// user stored should be displayed\ncy.get('#current-user').should('contain', 'cedric').and('contain', '1000');\n// logout\ncy.get('span.fa.fa-power-off').click();\n// should be redirected to home page\ncy.location('pathname')\n    .should('eq', '/')\n    // and localStorage should be clean\n    .and(() => expect(localStorage.getItem('rememberMe')).to.eq(null));\ncy.get(navbarLink).should('not.exist');\n// user is not displayed in navbar\ncy.get('#current-user').should('not.exist');\n// and home page offers the login link\ncy.get('.btn-primary').contains('Login').should('have.attr', 'href', '/login');",
               "err": {},
-              "uuid": "4bd09c03-fbc7-4dc4-9fe9-993f6e886b8c",
-              "parentUUID": "41496d74-8c5c-4558-852a-a9b3567f2dbc",
+              "uuid": "d5edc4cc-2333-4857-b811-e1c101d40a07",
+              "parentUUID": "80c3f201-a9d2-4653-9916-9121541bc06c",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "51cae24d-4e80-4065-b830-0f7175b1fe65",
-            "01a9059e-6191-4d05-8a80-68f5facb188a",
-            "8faefd63-9f9d-4464-8a36-67901d8748a2",
-            "4bd09c03-fbc7-4dc4-9fe9-993f6e886b8c"
+            "edafad9e-5d26-4b63-8c0b-92de8380a4c0",
+            "fb25eb75-64c0-482e-89ea-ef6b9245eae5",
+            "4003b7ca-8a4a-48b2-85e5-3d25bf4d3f75",
+            "d5edc4cc-2333-4857-b811-e1c101d40a07"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1727,
+          "duration": 1752,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -133,7 +133,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "77fc1489-a8f9-4d50-82cc-b61b033188f0",
+      "uuid": "71ffd168-5673-4ff2-b950-e1146b081182",
       "title": "",
       "fullFile": "cypress/integration/login.spec.ts",
       "file": "cypress/integration/login.spec.ts",
@@ -142,7 +142,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "a93ff48e-3361-4ecc-bb1a-af0f5e10b2d7",
+          "uuid": "f07773af-d6cc-455c-9375-4b1241c7fef2",
           "title": "Login",
           "fullFile": "",
           "file": "",
@@ -153,7 +153,7 @@
               "title": "should display a login page",
               "fullTitle": "Login should display a login page",
               "timedOut": null,
-              "duration": 1899,
+              "duration": 1841,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -162,8 +162,8 @@
               "context": null,
               "code": "cy.visit('/login');\ncy.get('button').should('be.visible').and('be.disabled');\nloginInput().type('c');\nloginInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Login is required');\nloginInput().type('ced');\nerrorMessage().should('not.exist');\npasswordInput().type('p');\npasswordInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Password is required');\npasswordInput().type('pa');\nerrorMessage().should('not.exist');\nsubmitButton().click();\ncy.wait('@authenticateUser');\ncy.location('pathname').should('eq', '/');",
               "err": {},
-              "uuid": "041a0c25-2786-42b5-a8db-c72800aa7cf7",
-              "parentUUID": "a93ff48e-3361-4ecc-bb1a-af0f5e10b2d7",
+              "uuid": "1460bf51-7443-4150-8040-10c89778bf75",
+              "parentUUID": "f07773af-d6cc-455c-9375-4b1241c7fef2",
               "isHook": false,
               "skipped": false
             },
@@ -171,7 +171,7 @@
               "title": "should display an alert if login fails",
               "fullTitle": "Login should display an alert if login fails",
               "timedOut": null,
-              "duration": 611,
+              "duration": 575,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -180,21 +180,21 @@
               "context": null,
               "code": "cy.visit('/login');\ncy.intercept('POST', 'api/users/authentication', {\n    statusCode: 404\n}).as('failedAuthenticateUser');\nloginInput().type('ced');\npasswordInput().type('pa');\nsubmitButton().click();\ncy.wait('@failedAuthenticateUser');\ncy.location('pathname').should('eq', '/login');\ncy.get('.alert-danger').should('contain', 'Nope, try again');",
               "err": {},
-              "uuid": "1889833e-4742-48f7-b62e-5b7ccd930621",
-              "parentUUID": "a93ff48e-3361-4ecc-bb1a-af0f5e10b2d7",
+              "uuid": "96c2dce1-4745-4045-99b7-5369eccd6d72",
+              "parentUUID": "f07773af-d6cc-455c-9375-4b1241c7fef2",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "041a0c25-2786-42b5-a8db-c72800aa7cf7",
-            "1889833e-4742-48f7-b62e-5b7ccd930621"
+            "1460bf51-7443-4150-8040-10c89778bf75",
+            "96c2dce1-4745-4045-99b7-5369eccd6d72"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 2510,
+          "duration": 2416,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -210,7 +210,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "53f00c0e-30c6-4c81-82dd-08a8e7594ef8",
+      "uuid": "87bbfb83-ae79-4a74-9ea4-d73c549daeea",
       "title": "",
       "fullFile": "cypress/integration/races.spec.ts",
       "file": "cypress/integration/races.spec.ts",
@@ -219,7 +219,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "1f57b97a-f1b3-4b82-9f02-0efb0d2244a8",
+          "uuid": "59c4226b-560d-4b55-a260-83f750485873",
           "title": "Races",
           "fullFile": "",
           "file": "",
@@ -230,7 +230,7 @@
               "title": "should display a race list",
               "fullTitle": "Races should display a race list",
               "timedOut": null,
-              "duration": 940,
+              "duration": 934,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -239,8 +239,8 @@
               "context": null,
               "code": "cy.visit('/races');\ncy.wait('@getRaces');\ncy.get('h2').should('have.length', 2);\ncy.get('p').should('have.length', 2).and('contain', 'ago');",
               "err": {},
-              "uuid": "0df79eb7-34ca-44c6-a0d9-0e4130df7491",
-              "parentUUID": "1f57b97a-f1b3-4b82-9f02-0efb0d2244a8",
+              "uuid": "2af2413a-224f-462f-a977-59da0bf660cd",
+              "parentUUID": "59c4226b-560d-4b55-a260-83f750485873",
               "isHook": false,
               "skipped": false
             },
@@ -248,7 +248,7 @@
               "title": "should display ponies",
               "fullTitle": "Races should display ponies",
               "timedOut": null,
-              "duration": 238,
+              "duration": 232,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -257,21 +257,21 @@
               "context": null,
               "code": "cy.visit('/races');\ncy.wait('@getRaces');\ncy.get('figure').should('have.length', 10);\ncy.get('img').should('have.length', 10);\ncy.get('figcaption').should('have.length', 10);",
               "err": {},
-              "uuid": "3a30d845-8159-4b50-822c-69151c0c0967",
-              "parentUUID": "1f57b97a-f1b3-4b82-9f02-0efb0d2244a8",
+              "uuid": "3457ee70-b8c7-40bf-9150-0253f53908da",
+              "parentUUID": "59c4226b-560d-4b55-a260-83f750485873",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "0df79eb7-34ca-44c6-a0d9-0e4130df7491",
-            "3a30d845-8159-4b50-822c-69151c0c0967"
+            "2af2413a-224f-462f-a977-59da0bf660cd",
+            "3457ee70-b8c7-40bf-9150-0253f53908da"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1178,
+          "duration": 1166,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -287,7 +287,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "f7bdd1e2-ff34-4493-badb-410423e9aa85",
+      "uuid": "bba89d88-8cd2-44cf-b09d-52743e19e8c0",
       "title": "",
       "fullFile": "cypress/integration/register.spec.ts",
       "file": "cypress/integration/register.spec.ts",
@@ -296,7 +296,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "01510ec0-c430-41c3-86c4-95ee29ff49ab",
+          "uuid": "05e099a9-8cf4-4c2e-95de-af5af46e9c51",
           "title": "Register",
           "fullFile": "",
           "file": "",
@@ -307,7 +307,7 @@
               "title": "should display a register page",
               "fullTitle": "Register should display a register page",
               "timedOut": null,
-              "duration": 3387,
+              "duration": 3523,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -316,20 +316,20 @@
               "context": null,
               "code": "cy.visit('/register');\nconst loginInput = () => cy.get('input').first();\nconst passwordInput = () => cy.get('input[type=password]').first();\nconst confirmInput = () => cy.get('input[type=password]').eq(1);\nconst birthYearInput = () => cy.get('input[type=number]');\nconst errorMessage = () => cy.get('.mb-3 div');\ncy.get('button').should('be.visible').and('be.disabled');\nloginInput().type('c');\nloginInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Login is required');\nloginInput().type('ced');\nerrorMessage().should('not.exist');\npasswordInput().type('p');\npasswordInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Password is required');\npasswordInput().type('pa');\nerrorMessage().should('not.exist');\nconfirmInput().type('p');\nconfirmInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Confirming password is required');\nconfirmInput().type('p');\ncy.get('form').should('be.visible').and('contain', 'Your password does not match');\nconfirmInput().type('a');\nerrorMessage().should('not.exist');\nbirthYearInput().type('1');\nbirthYearInput().clear();\nerrorMessage().should('be.visible').and('contain', 'Birth year is required');\nbirthYearInput().type(`${new Date().getFullYear() + 1}`);\nerrorMessage().should('be.visible').and('contain', 'This is not a valid year');\nbirthYearInput().clear();\nbirthYearInput().type('1986');\nerrorMessage().should('not.exist');\ncy.get('form > button').click();\ncy.wait('@registerUser');\ncy.location('pathname').should('eq', '/');",
               "err": {},
-              "uuid": "80bdda96-aeba-4ae3-85bb-2dc02da1dde1",
-              "parentUUID": "01510ec0-c430-41c3-86c4-95ee29ff49ab",
+              "uuid": "a4b689bc-3468-41f1-88b9-281c22fd1716",
+              "parentUUID": "05e099a9-8cf4-4c2e-95de-af5af46e9c51",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "80bdda96-aeba-4ae3-85bb-2dc02da1dde1"
+            "a4b689bc-3468-41f1-88b9-281c22fd1716"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 3387,
+          "duration": 3523,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

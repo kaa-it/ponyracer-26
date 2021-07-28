@@ -3,8 +3,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserModel } from './models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-
-const baseUrl = 'https://ponyracer.ninja-squad.com';
+import { environment } from './environment';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ const baseUrl = 'https://ponyracer.ninja-squad.com';
 export class UserService {
   userEvents: BehaviorSubject<UserModel | null>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private jwtInterceptor: JwtInterceptor) {
     this.userEvents = new BehaviorSubject<UserModel | null>(null);
     this.retrieveUser();
   }
 
   register(login: string, password: string, birthYear: number): Observable<UserModel> {
-    return this.http.post<UserModel>(`${baseUrl}/api/users`, {
+    return this.http.post<UserModel>(`${environment.baseUrl}/api/users`, {
       login,
       password,
       birthYear
@@ -27,13 +27,14 @@ export class UserService {
 
   authenticate(credentials: { login: string; password: string }): Observable<UserModel> {
     return this.http
-      .post<UserModel>(`${baseUrl}/api/users/authentication`, credentials)
+      .post<UserModel>(`${environment.baseUrl}/api/users/authentication`, credentials)
       .pipe(tap((u: UserModel) => this.storeLoggedInUser(u)));
   }
 
   storeLoggedInUser(user: UserModel) {
     this.userEvents.next(user);
     window.localStorage.setItem('rememberMe', JSON.stringify(user));
+    this.jwtInterceptor.setJwtToken(user.token);
   }
 
   retrieveUser() {
@@ -42,11 +43,13 @@ export class UserService {
     if (rememberMe) {
       const user: UserModel = JSON.parse(rememberMe);
       this.userEvents.next(user);
+      this.jwtInterceptor.setJwtToken(user.token);
     }
   }
 
   logout() {
     this.userEvents.next(null);
     window.localStorage.removeItem('rememberMe');
+    this.jwtInterceptor.removeJwtToken();
   }
 }
