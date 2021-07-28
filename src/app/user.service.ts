@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserModel } from './models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { environment } from './environment';
+import { environment } from '../environments/environment';
 import { JwtInterceptor } from './jwt.interceptor';
 
 @Injectable({
